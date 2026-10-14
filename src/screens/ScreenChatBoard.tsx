@@ -2,19 +2,18 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SITE_CONFIG } from '../content';
 import { soundManager } from '../utils/audio';
-import { launchRomanticConfetti } from '../utils/confetti';
 import { InteractiveSnoopy } from '../components/InteractiveSnoopy';
-import { ArrowLeft, MessageCircleHeart, Sparkles, Trash2, Plus } from 'lucide-react';
+import { MessageCircleHeart, Sparkles, Trash2, Plus } from 'lucide-react';
 
 interface ScreenChatBoardProps {
-  onBack: () => void;
+  onBack?: () => void;
 }
 
 interface ChatSticker {
   id: number;
   phrase: string;
-  x: number; // percentage 5% to 85%
-  y: number; // percentage 5% to 85%
+  x: number; // percentage 14% to 80%
+  y: number; // percentage 14% to 80%
   rotation: number;
   colorScheme: {
     bg: string;
@@ -33,26 +32,24 @@ const COLOR_SCHEMES = [
   { bg: '#F0F9FF', border: '#BAE6FD', tape: 'rgba(186, 230, 253, 0.65)', textColor: '#075985' }, // Небесный
 ];
 
-export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
+export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = () => {
   const [stickers, setStickers] = useState<ChatSticker[]>(() => {
-    // Начальные 4 фразочки для красивого первого впечатления
+    // Начальные 4 фразочки для красивого первого впечатления в безопасных зонах
     const initialPhrases = ['буся', 'нормалды', 'я тебя очень люблю', 'во скок встретимся'];
-    return initialPhrases.map((phrase, idx) => {
-      const positions = [
-        { x: 18, y: 22 },
-        { x: 62, y: 18 },
-        { x: 26, y: 62 },
-        { x: 68, y: 58 },
-      ];
-      return {
-        id: idx + 1,
-        phrase,
-        x: positions[idx].x,
-        y: positions[idx].y,
-        rotation: (idx % 2 === 0 ? 1 : -1) * (3 + idx * 1.5),
-        colorScheme: COLOR_SCHEMES[idx % COLOR_SCHEMES.length],
-      };
-    });
+    const positions = [
+      { x: 24, y: 24 },
+      { x: 74, y: 22 },
+      { x: 26, y: 64 },
+      { x: 70, y: 62 },
+    ];
+    return initialPhrases.map((phrase, idx) => ({
+      id: idx + 1,
+      phrase,
+      x: positions[idx].x,
+      y: positions[idx].y,
+      rotation: (idx % 2 === 0 ? 1 : -1) * (3 + idx * 1.5),
+      colorScheme: COLOR_SCHEMES[idx % COLOR_SCHEMES.length],
+    }));
   });
 
   const boardRef = useRef<HTMLDivElement>(null);
@@ -72,19 +69,16 @@ export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
     const newSticker: ChatSticker = {
       id: Date.now() + Math.random(),
       phrase: getRandomPhrase(),
-      x: Math.max(8, Math.min(84, xPercent)),
-      y: Math.max(10, Math.min(84, yPercent)),
-      rotation: (Math.random() - 0.5) * 14,
+      x: Math.max(16, Math.min(78, xPercent)),
+      y: Math.max(14, Math.min(80, yPercent)),
+      rotation: (Math.random() - 0.5) * 12,
       colorScheme: COLOR_SCHEMES[Math.floor(Math.random() * COLOR_SCHEMES.length)],
     };
-    setStickers((prev) => [...prev.slice(-24), newSticker]);
+    // Ограничиваем количество стикеров максимум 15, чтобы на мобильных не было лагов
+    setStickers((prev) => [...prev.slice(-14), newSticker]);
   };
 
   const handleBoardClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Если кликнули по существующему стикеру, не добавляем новый поверх
-    if ((e.target as HTMLElement).closest('.chat-sticker-item')) {
-      return;
-    }
     if (!boardRef.current) return;
     const rect = boardRef.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -93,25 +87,24 @@ export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
   };
 
   const handleAddRandomSticker = () => {
-    const randomX = 12 + Math.random() * 70;
-    const randomY = 14 + Math.random() * 68;
+    const randomX = 18 + Math.random() * 60;
+    const randomY = 18 + Math.random() * 60;
     addStickerAt(randomX, randomY);
   };
 
   const handleFillBoard = () => {
     soundManager.playSparkle();
-    launchRomanticConfetti();
     const presetPositions = [
-      { x: 14, y: 16 }, { x: 48, y: 14 }, { x: 78, y: 18 },
-      { x: 22, y: 44 }, { x: 54, y: 48 }, { x: 80, y: 46 },
-      { x: 16, y: 74 }, { x: 44, y: 78 }, { x: 74, y: 76 },
+      { x: 20, y: 20 }, { x: 50, y: 18 }, { x: 78, y: 22 },
+      { x: 24, y: 46 }, { x: 52, y: 48 }, { x: 78, y: 50 },
+      { x: 22, y: 74 }, { x: 50, y: 76 }, { x: 76, y: 74 },
     ];
     const newStickers: ChatSticker[] = presetPositions.map((pos, idx) => ({
       id: Date.now() + idx,
       phrase: phrasePool[(idx * 7) % phrasePool.length],
-      x: pos.x + (Math.random() - 0.5) * 6,
-      y: pos.y + (Math.random() - 0.5) * 6,
-      rotation: (Math.random() - 0.5) * 14,
+      x: pos.x + (Math.random() - 0.5) * 4,
+      y: pos.y + (Math.random() - 0.5) * 4,
+      rotation: (Math.random() - 0.5) * 12,
       colorScheme: COLOR_SCHEMES[idx % COLOR_SCHEMES.length],
     }));
     setStickers(newStickers);
@@ -120,15 +113,6 @@ export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
   const handleClearBoard = () => {
     soundManager.playClick();
     setStickers([]);
-  };
-
-  const handleStickerTap = (id: number) => {
-    soundManager.playPop();
-    launchRomanticConfetti();
-    // Легкий толчок при повторном клике
-    setStickers((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, rotation: s.rotation * -1 } : s))
-    );
   };
 
   return (
@@ -149,33 +133,6 @@ export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
         position: 'relative',
       }}
     >
-      {/* Кнопка возврата к подаркам */}
-      <div style={{ width: '100%', display: 'flex', marginBottom: '10px' }}>
-        <button
-          onClick={() => {
-            soundManager.playClick();
-            onBack();
-          }}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '7px 15px',
-            borderRadius: '12px',
-            backgroundColor: 'rgba(255, 252, 248, 0.95)',
-            border: '1px solid var(--border-peach)',
-            color: 'var(--text-dark)',
-            fontSize: '0.88rem',
-            fontWeight: 600,
-            boxShadow: '0 2px 8px rgba(175, 74, 101, 0.12)',
-            cursor: 'pointer',
-          }}
-        >
-          <ArrowLeft size={16} />
-          <span>К подаркам</span>
-        </button>
-      </div>
-
       {/* Заголовок */}
       <div
         style={{
@@ -320,12 +277,11 @@ export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
           background:
             'radial-gradient(ellipse at 50% 40%, rgba(255, 252, 247, 0.98) 0%, rgba(249, 239, 229, 0.95) 100%)',
           border: '2px dashed rgba(212, 150, 163, 0.75)',
-          boxShadow: '0 20px 48px rgba(175, 74, 101, 0.14), inset 0 2px 8px rgba(255, 255, 255, 0.85)',
+          boxShadow: '0 14px 36px rgba(175, 74, 101, 0.12), inset 0 2px 8px rgba(255, 255, 255, 0.85)',
           position: 'relative',
           overflow: 'hidden',
           cursor: 'pointer',
           userSelect: 'none',
-          backdropFilter: 'blur(8px)',
         }}
       >
         {/* Декоративные скотчи по 4 углам доски */}
@@ -392,21 +348,16 @@ export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
           </div>
         )}
 
-        {/* Наклеенные стикеры с фразами */}
+        {/* Наклеенные стикеры с фразами: компактные, плавные, не перегружают экран телефона */}
         <AnimatePresence>
           {stickers.map((stk) => (
             <motion.div
               key={stk.id}
               className="chat-sticker-item"
-              initial={{ scale: 0, rotate: stk.rotation * 2, opacity: 0 }}
+              initial={{ scale: 0, rotate: stk.rotation * 1.5, opacity: 0 }}
               animate={{ scale: 1, rotate: stk.rotation, opacity: 1 }}
-              exit={{ scale: 0.4, opacity: 0 }}
-              whileHover={{ scale: 1.08, zIndex: 40 }}
-              whileTap={{ scale: 0.94 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleStickerTap(stk.id);
-              }}
+              exit={{ scale: 0.3, opacity: 0 }}
+              transition={{ duration: 0.2 }}
               style={{
                 position: 'absolute',
                 left: `${stk.x}%`,
@@ -414,13 +365,13 @@ export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
                 transform: `translate(-50%, -50%) rotate(${stk.rotation}deg)`,
                 backgroundColor: stk.colorScheme.bg,
                 border: `1.5px solid ${stk.colorScheme.border}`,
-                borderRadius: '14px',
-                padding: '10px 16px 8px',
-                boxShadow: '0 8px 22px rgba(74, 43, 51, 0.12), 0 2px 6px rgba(0,0,0,0.04)',
-                cursor: 'pointer',
+                borderRadius: '10px',
+                padding: '4px 10px 4px',
+                boxShadow: '0 3px 10px rgba(74, 43, 51, 0.08)',
+                pointerEvents: 'none',
                 zIndex: 10,
-                maxWidth: '220px',
-                minWidth: '100px',
+                maxWidth: 'clamp(85px, 26vw, 120px)',
+                minWidth: '50px',
                 textAlign: 'center',
               }}
             >
@@ -428,24 +379,24 @@ export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
               <div
                 style={{
                   position: 'absolute',
-                  top: '-8px',
+                  top: '-5px',
                   left: '50%',
                   transform: 'translateX(-50%) rotate(-2deg)',
-                  width: '38px',
-                  height: '12px',
+                  width: '26px',
+                  height: '8px',
                   backgroundColor: stk.colorScheme.tape,
                   borderRadius: '2px',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
                 }}
               />
 
               <span
                 style={{
                   fontFamily: 'var(--font-handwritten)',
-                  fontSize: 'clamp(1.15rem, 3.2vw, 1.45rem)',
+                  fontSize: 'clamp(0.82rem, 2.6vw, 0.98rem)',
                   fontWeight: 700,
                   color: stk.colorScheme.textColor,
-                  lineHeight: 1.25,
+                  lineHeight: 1.2,
                   display: 'block',
                   wordBreak: 'break-word',
                 }}
@@ -456,13 +407,13 @@ export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
           ))}
         </AnimatePresence>
 
-        {/* Снупи в правом нижнем углу доски */}
+        {/* Снупи в правом нижнем углу доски с облачком, направленным внутрь экрана */}
         <div
           style={{
             position: 'absolute',
-            bottom: '10px',
-            right: '12px',
-            width: 'clamp(65px, 14vw, 84px)',
+            bottom: '8px',
+            right: '10px',
+            width: 'clamp(55px, 13vw, 75px)',
             zIndex: 35,
           }}
         >
@@ -470,16 +421,17 @@ export const ScreenChatBoard: React.FC<ScreenChatBoardProps> = ({ onBack }) => {
             src="/assets/decorations/snoopy with arahis.png"
             alt="Снупи читает чат"
             quotes={[
-              'читаю ваш чат 🐾',
-              '31 821 сообщение — это любовь 💕',
-              'нормалды переписка',
+              'читаю чат 🐾',
+              '31 821 смс 💕',
+              'нормалды',
               'буся и босс',
-              'кисс',
+              'кисс ✨',
               'обоюдно',
             ]}
             bubblePosition="top"
+            bubbleAlign="right"
             style={{
-              filter: 'drop-shadow(0 4px 10px rgba(74, 43, 51, 0.18))',
+              filter: 'drop-shadow(0 3px 8px rgba(74, 43, 51, 0.16))',
             }}
           />
         </div>

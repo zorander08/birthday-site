@@ -12,6 +12,7 @@ interface InteractiveSnoopyProps {
   width?: string | number;
   height?: string | number;
   bubblePosition?: 'top' | 'bottom' | 'left' | 'right';
+  bubbleAlign?: 'center' | 'left' | 'right';
   onError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
@@ -25,6 +26,7 @@ export const InteractiveSnoopy: React.FC<InteractiveSnoopyProps> = ({
   width,
   height,
   bubblePosition = 'top',
+  bubbleAlign = 'center',
   onError,
 }) => {
   const [isShaking, setIsShaking] = useState(false);
@@ -40,12 +42,12 @@ export const InteractiveSnoopy: React.FC<InteractiveSnoopyProps> = ({
     setIsShaking(true);
     setShowBubble(true);
 
-    // Сменяем фразу и слегка варьируем положение облачка для разнообразия
+    // Сменяем фразу
     setQuoteIndex((prev) => (prev + 1) % pool.length);
 
-    // Если позиция не жестко задана, слегка меняем сторону
-    const positions: ('top' | 'bottom' | 'left' | 'right')[] = ['top', 'top', 'bottom'];
-    if (bubblePosition === 'top') {
+    // Если выравнивание по краю не задано, слегка меняем сторону для динамики
+    if (bubbleAlign === 'center' && bubblePosition === 'top') {
+      const positions: ('top' | 'bottom' | 'left' | 'right')[] = ['top', 'top', 'bottom'];
       setCurrentPosition(positions[Math.floor(Math.random() * positions.length)]);
     } else {
       setCurrentPosition(bubblePosition);
@@ -62,8 +64,38 @@ export const InteractiveSnoopy: React.FC<InteractiveSnoopyProps> = ({
 
   const currentQuote = pool[quoteIndex];
 
-  // Расположение облачка в зависимости от currentPosition
+  // Расположение облачка в зависимости от currentPosition и bubbleAlign
   const getBubbleStyle = (): React.CSSProperties => {
+    if (bubbleAlign === 'right') {
+      if (currentPosition === 'bottom') {
+        return {
+          top: '100%',
+          marginTop: '6px',
+          right: 0,
+        };
+      }
+      return {
+        bottom: '100%',
+        marginBottom: '6px',
+        right: 0,
+      };
+    }
+
+    if (bubbleAlign === 'left') {
+      if (currentPosition === 'bottom') {
+        return {
+          top: '100%',
+          marginTop: '6px',
+          left: 0,
+        };
+      }
+      return {
+        bottom: '100%',
+        marginBottom: '6px',
+        left: 0,
+      };
+    }
+
     switch (currentPosition) {
       case 'bottom':
         return {
@@ -156,7 +188,11 @@ export const InteractiveSnoopy: React.FC<InteractiveSnoopyProps> = ({
               padding: '4px 10px',
               borderRadius: '12px',
               boxShadow: '0 4px 14px rgba(175, 74, 101, 0.25)',
-              whiteSpace: 'nowrap',
+              maxWidth: 'min(220px, 68vw)',
+              whiteSpace: 'normal',
+              wordBreak: 'break-word',
+              textAlign: 'center',
+              lineHeight: 1.25,
               zIndex: 35,
               pointerEvents: 'none',
             }}
