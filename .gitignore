@@ -24,8 +24,7 @@ mega-doodles-pack-master.zip
 music player/
 фотки/
 
-# Commercial MP3 audio files (kept locally for dev, excluded from GitHub/Vercel)
-public/assets/music/
+# Backup
 _backup_music_local/
 
 # Logs and cache
