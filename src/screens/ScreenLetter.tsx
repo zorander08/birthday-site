@@ -28,11 +28,12 @@ export const ScreenLetter: React.FC<ScreenLetterProps> = ({ onBack }) => {
   const [catBubble, setCatBubble] = useState<string | null>(null);
 
   const catQuotes = [
-    'Буся лучшая! 🐾',
-    'Мур-мур, нормалды! 🥰',
-    'Давид обоюдно мяукнул! 🤝',
-    'Ты как, бусюн? 💖',
-    'Люблю Буську! 🌸',
+    'буся лучшая',
+    'мур-мур нормалды',
+    'ты как бусюн',
+    'люблю буську',
+    'кисс',
+    'котик',
   ];
 
   const handleCatClick = () => {

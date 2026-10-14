@@ -16,13 +16,6 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
   const [errorShake, setErrorShake] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [missMessage, setMissMessage] = useState<string | null>(null);
-  const [ameliaBubble, setAmeliaBubble] = useState(false);
-  const [timurBubble, setTimurBubble] = useState(false);
-  const [ameliaBubbleText, setAmeliaBubbleText] = useState('Буся! 💖');
-  const [timurBubbleText, setTimurBubbleText] = useState('Босс 👑');
-
-  const ameliaQuotes = ['Буся! 💖', 'Бусюн 🌸', 'Булка 🥐', 'Бусечка ✨', 'Буська 💕', 'Любимая бусь! 🌸'];
-  const timurQuotes = ['Босс 👑', 'Нормалды 👍', 'Давид обоюдно 🤝', 'Твой Тимур 💙', 'Во скок? ⏰'];
 
   const validateCode = (input: string) => {
     const clean = input.replace(/[\s.-]/g, '');
@@ -30,10 +23,6 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
       return { valid: true };
     }
     if (clean === SITE_CONFIG.specialDate2026 || clean === SITE_CONFIG.specialDate2026Short) {
-      return { valid: true };
-    }
-    // Четыре раза 67 (67676767) - без вывода
-    if (clean === SITE_CONFIG.easterEggCode) {
       return { valid: true };
     }
     return { valid: false };
@@ -81,17 +70,6 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
       return;
     }
 
-    // Пасхалка 67676767: «Давид обоюдно! 🤝 Бонус!»
-    if (clean === '67676767' || clean === '6767') {
-      soundManager.playSparkle();
-      launchRomanticConfetti();
-      setMissMessage('Давид обоюдно! 🤝 Бонус!');
-      setTimeout(() => {
-        setMissMessage(null);
-        setCode('');
-      }, 2400);
-      return;
-    }
 
     const result = validateCode(candidate);
     if (result.valid) {
@@ -212,20 +190,14 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.94 }}
-              onClick={() => {
-                soundManager.playPop();
-                const nextQ = ameliaQuotes[Math.floor(Math.random() * ameliaQuotes.length)];
-                setAmeliaBubbleText(nextQ);
-                setAmeliaBubble(true);
-                setTimeout(() => setAmeliaBubble(false), 2200);
-              }}
+              onClick={() => soundManager.playPop()}
               style={{
                 width: 'clamp(120px, 26vw, 165px)',
                 aspectRatio: '1.2 / 1',
                 position: 'relative',
                 cursor: 'pointer',
               }}
-              title="Нажми на сердечко Амелии!"
+              title="Амелия"
             >
               <div
                 style={{
@@ -267,52 +239,13 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
                   filter: 'drop-shadow(0 6px 14px rgba(175, 74, 101, 0.25))',
                 }}
               />
-
-              {/* Всплывающая плашка Амелии */}
-              <AnimatePresence>
-                {ameliaBubble && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.7, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    style={{
-                      position: 'absolute',
-                      bottom: '100%',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      marginBottom: '6px',
-                      backgroundColor: 'rgba(255, 252, 248, 0.98)',
-                      border: '1.5px solid var(--accent-deep)',
-                      borderRadius: '12px',
-                      padding: '4px 12px',
-                      boxShadow: '0 4px 14px rgba(175, 74, 101, 0.25)',
-                      fontFamily: 'var(--font-handwritten)',
-                      fontSize: '1.15rem',
-                      fontWeight: 700,
-                      color: 'var(--accent-crimson)',
-                      whiteSpace: 'nowrap',
-                      zIndex: 25,
-                      pointerEvents: 'none',
-                    }}
-                  >
-                    {ameliaBubbleText}
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </motion.div>
 
             {/* Сердечко Тимура в синей рамке */}
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.94 }}
-              onClick={() => {
-                soundManager.playPop();
-                const nextQ = timurQuotes[Math.floor(Math.random() * timurQuotes.length)];
-                setTimurBubbleText(nextQ);
-                setTimurBubble(true);
-                setTimeout(() => setTimurBubble(false), 2200);
-              }}
+              onClick={() => soundManager.playPop()}
               style={{
                 width: 'clamp(120px, 26vw, 165px)',
                 aspectRatio: '1.2 / 1',
@@ -320,7 +253,7 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
                 position: 'relative',
                 cursor: 'pointer',
               }}
-              title="Нажми на сердечко Тимура!"
+              title="Тимур"
             >
               <div
                 style={{
@@ -362,39 +295,6 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
                   filter: 'drop-shadow(0 6px 14px rgba(74, 110, 175, 0.25))',
                 }}
               />
-
-              {/* Всплывающая плашка Тимура */}
-              <AnimatePresence>
-                {timurBubble && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.7, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    style={{
-                      position: 'absolute',
-                      bottom: '100%',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      marginBottom: '6px',
-                      backgroundColor: 'rgba(255, 252, 248, 0.98)',
-                      border: '1.5px solid #4A6EAF',
-                      borderRadius: '12px',
-                      padding: '4px 12px',
-                      boxShadow: '0 4px 14px rgba(74, 110, 175, 0.25)',
-                      fontFamily: 'var(--font-handwritten)',
-                      fontSize: '1.15rem',
-                      fontWeight: 700,
-                      color: '#34558B',
-                      whiteSpace: 'nowrap',
-                      zIndex: 25,
-                      pointerEvents: 'none',
-                    }}
-                  >
-                    {timurBubbleText}
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </motion.div>
           </div>
 
@@ -422,12 +322,12 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
               src="/assets/decorations/snoopy with heart-i love you.png"
               alt="Снупи I love you"
               quotes={[
-                'Люблю тебя очень сильно бусь! 💖',
-                'Босс, вводи пин-код! 👑',
-                'Давид обоюдно одобряет! 🤝',
-                'Нормалды! 🐾',
-                'Ты как, бусюн? 🌸',
-                'Буська самая любимая! 💕',
+                'босс вводи пин-код',
+                'нормалды',
+                'ты как бусюн',
+                'буська самая любимая',
+                'кисс',
+                'люблю тебя очень сильно бусь',
               ]}
               bubblePosition="top"
               style={{

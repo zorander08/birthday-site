@@ -272,11 +272,12 @@ export const ScreenGifts: React.FC<ScreenGiftsProps> = ({
                 src="/assets/decorations/snoopy caughing.png"
                 alt="Кашляющий Снупи"
                 quotes={[
-                  '*кхе-кхе!* 🐾',
-                  'Давид обоюдно заболел 🤒',
-                  'Нормалды, буся лучшая! 💕',
-                  'Блядб, подарки! 🎁',
-                  'Давид обоюдно на батуте! 🤸‍♂️',
+                  '*кхе-кхе*',
+                  'нормалды',
+                  'буся лучшая',
+                  'блядб подарки',
+                  'кисс',
+                  'бонус',
                 ]}
                 bubblePosition="top"
                 style={{

@@ -236,11 +236,11 @@ export const ScreenHearts: React.FC<ScreenHeartsProps> = ({ onNext }) => {
             src="/assets/decorations/snoopy sitting.png"
             alt="Снупи"
             quotes={[
-              'Сижу и любуюсь Бусей! 🥰',
-              'Нормалды! 🐾',
-              'Давид обоюдно ждет! 🤝',
-              'Ты как, бусюн? 🌸',
-              'Булка самая красивая! 🥐',
+              'сижу и любуюсь бусей',
+              'нормалды',
+              'ты как бусюн',
+              'булка самая красивая',
+              'кисс',
             ]}
             bubblePosition="top"
             style={{
