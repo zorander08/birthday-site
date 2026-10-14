@@ -10,7 +10,7 @@ let bgAudio: HTMLAudioElement | null = null;
 let bgSource: MediaElementAudioSourceNode | null = null;
 let bgGainNode: GainNode | null = null;
 
-const QUIET_VOLUME = 0.015;
+const QUIET_VOLUME = 0.08;
 const FULL_VOLUME = 0.65;
 
 function getAudioContext(): AudioContext | null {
@@ -98,7 +98,7 @@ export const soundManager = {
   },
 
   /**
-   * Запуск романтической песни на заднем фоне на очень тихой громкости (0.015)
+   * Запуск романтической песни на заднем фоне на комфортной громкости (0.08)
    * Включается при открытии сюрпризов, играет на экранах подарков, открытки и истории
    */
   startBackgroundMusic() {
@@ -128,7 +128,7 @@ export const soundManager = {
   /**
    * Управление звуком видео-истории:
    * При запуске видео-эдита та же самая песня плавно прибавляет громкость до 0.65
-   * При закрытии возвращается к очень тихому фоновому уровню (0.015)
+   * При закрытии возвращается к комфортному фоновому уровню (0.08)
    */
   setVideoModeAudio(active: boolean, isPlaying: boolean) {
     const audio = getBgAudio();

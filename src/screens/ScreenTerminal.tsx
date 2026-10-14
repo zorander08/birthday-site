@@ -18,6 +18,11 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
   const [missMessage, setMissMessage] = useState<string | null>(null);
   const [ameliaBubble, setAmeliaBubble] = useState(false);
   const [timurBubble, setTimurBubble] = useState(false);
+  const [ameliaBubbleText, setAmeliaBubbleText] = useState('Буся! 💖');
+  const [timurBubbleText, setTimurBubbleText] = useState('Босс 👑');
+
+  const ameliaQuotes = ['Буся! 💖', 'Бусюн 🌸', 'Булка 🥐', 'Бусечка ✨', 'Буська 💕', 'Любимая бусь! 🌸'];
+  const timurQuotes = ['Босс 👑', 'Нормалды 👍', 'Давид обоюдно 🤝', 'Твой Тимур 💙', 'Во скок? ⏰'];
 
   const validateCode = (input: string) => {
     const clean = input.replace(/[\s.-]/g, '');
@@ -73,6 +78,18 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
         setMissMessage(null);
         setCode('');
       }, 2200);
+      return;
+    }
+
+    // Пасхалка 67676767: «Давид обоюдно! 🤝 Бонус!»
+    if (clean === '67676767' || clean === '6767') {
+      soundManager.playSparkle();
+      launchRomanticConfetti();
+      setMissMessage('Давид обоюдно! 🤝 Бонус!');
+      setTimeout(() => {
+        setMissMessage(null);
+        setCode('');
+      }, 2400);
       return;
     }
 
@@ -197,8 +214,10 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
               whileTap={{ scale: 0.94 }}
               onClick={() => {
                 soundManager.playPop();
+                const nextQ = ameliaQuotes[Math.floor(Math.random() * ameliaQuotes.length)];
+                setAmeliaBubbleText(nextQ);
                 setAmeliaBubble(true);
-                setTimeout(() => setAmeliaBubble(false), 2000);
+                setTimeout(() => setAmeliaBubble(false), 2200);
               }}
               style={{
                 width: 'clamp(120px, 26vw, 165px)',
@@ -249,7 +268,7 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
                 }}
               />
 
-              {/* Всплывающая плашка "Любимая 💖" */}
+              {/* Всплывающая плашка Амелии */}
               <AnimatePresence>
                 {ameliaBubble && (
                   <motion.div
@@ -277,7 +296,7 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
                       pointerEvents: 'none',
                     }}
                   >
-                    Любимая 💖
+                    {ameliaBubbleText}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -289,8 +308,10 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
               whileTap={{ scale: 0.94 }}
               onClick={() => {
                 soundManager.playPop();
+                const nextQ = timurQuotes[Math.floor(Math.random() * timurQuotes.length)];
+                setTimurBubbleText(nextQ);
                 setTimurBubble(true);
-                setTimeout(() => setTimurBubble(false), 2000);
+                setTimeout(() => setTimurBubble(false), 2200);
               }}
               style={{
                 width: 'clamp(120px, 26vw, 165px)',
@@ -342,7 +363,7 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
                 }}
               />
 
-              {/* Всплывающая плашка "Любимый 💙" */}
+              {/* Всплывающая плашка Тимура */}
               <AnimatePresence>
                 {timurBubble && (
                   <motion.div
@@ -370,7 +391,7 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
                       pointerEvents: 'none',
                     }}
                   >
-                    Любимый 💙
+                    {timurBubbleText}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -401,11 +422,12 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
               src="/assets/decorations/snoopy with heart-i love you.png"
               alt="Снупи I love you"
               quotes={[
-                'I love you! 💖',
-                'Больше всего на свете! 💕',
-                'Для Буси от Тимура! 🌸',
-                'Гав-гав, люблю! 🐶',
-                'Ты моё счастье! 🥰',
+                'Люблю тебя очень сильно бусь! 💖',
+                'Босс, вводи пин-код! 👑',
+                'Давид обоюдно одобряет! 🤝',
+                'Нормалды! 🐾',
+                'Ты как, бусюн? 🌸',
+                'Буська самая любимая! 💕',
               ]}
               bubblePosition="top"
               style={{

@@ -13,17 +13,8 @@ export const HeaderControls: React.FC<HeaderControlsProps> = ({ currentScreen, o
   const [isMuted, setIsMuted] = useState(soundManager.getMuted());
   const [showCountdownTip, setShowCountdownTip] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showFsHint, setShowFsHint] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return !localStorage.getItem('amelia_fs_hint_dismissed');
-  });
-
-  const dismissFsHint = () => {
-    setShowFsHint(false);
-    try {
-      localStorage.setItem('amelia_fs_hint_dismissed', 'true');
-    } catch {}
-  };
+  // Подсказка активна при каждой перезагрузке, пока не включен весь экран
+  const [showFsHint, setShowFsHint] = useState(true);
 
   useEffect(() => {
     const onFullscreenChange = () => {
@@ -32,10 +23,10 @@ export const HeaderControls: React.FC<HeaderControlsProps> = ({ currentScreen, o
         (document as unknown as { webkitFullscreenElement?: Element }).webkitFullscreenElement
       );
       setIsFullscreen(isFs);
-      if (isFs) {
-        dismissFsHint();
-      }
+      setShowFsHint(!isFs);
     };
+
+    onFullscreenChange();
 
     document.addEventListener('fullscreenchange', onFullscreenChange);
     document.addEventListener('webkitfullscreenchange', onFullscreenChange);
@@ -47,7 +38,6 @@ export const HeaderControls: React.FC<HeaderControlsProps> = ({ currentScreen, o
 
   const handleToggleFullscreen = async () => {
     soundManager.playClick();
-    dismissFsHint();
     try {
       const doc = document as unknown as {
         fullscreenElement?: Element;
@@ -325,7 +315,7 @@ export const HeaderControls: React.FC<HeaderControlsProps> = ({ currentScreen, o
                 style={{
                   position: 'absolute',
                   top: 'calc(100% + 14px)',
-                  right: '-24px',
+                  right: '0px',
                   zIndex: 70,
                   cursor: 'pointer',
                   filter: 'drop-shadow(0 8px 24px rgba(175, 74, 101, 0.22))',
@@ -337,7 +327,7 @@ export const HeaderControls: React.FC<HeaderControlsProps> = ({ currentScreen, o
                   style={{
                     position: 'absolute',
                     top: '-16px',
-                    right: '34px',
+                    right: '12px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',

@@ -237,10 +237,10 @@ export const ScreenHearts: React.FC<ScreenHeartsProps> = ({ onNext }) => {
             alt="Снупи"
             quotes={[
               'Сижу и любуюсь Бусей! 🥰',
-              'Отдыхаю рядом! 🐾',
-              'Улыбнись, любимая! 🌸',
-              'Ты самая красивая! 💖',
-              'Гав-гав! 🐶',
+              'Нормалды! 🐾',
+              'Давид обоюдно ждет! 🤝',
+              'Ты как, бусюн? 🌸',
+              'Булка самая красивая! 🥐',
             ]}
             bubblePosition="top"
             style={{
@@ -303,7 +303,7 @@ export const ScreenHearts: React.FC<ScreenHeartsProps> = ({ onNext }) => {
                   lineHeight: 1.3,
                 }}
               >
-                Я тебя очень сильно люблю и ценю
+                Люблю тебя очень сильно бусь!
               </span>
               <span style={{ fontSize: '1.4rem', flexShrink: 0 }}>💖</span>
             </motion.div>
