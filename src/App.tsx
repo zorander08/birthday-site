@@ -11,8 +11,9 @@ import { ScreenGifts } from './screens/ScreenGifts';
 import { ScreenMusic } from './screens/ScreenMusic';
 import { ScreenLetter } from './screens/ScreenLetter';
 import { ScreenStory } from './screens/ScreenStory';
+import { ScreenChatBoard } from './screens/ScreenChatBoard';
 
-export type AppScreen = 'hearts' | 'terminal' | 'gifts' | 'music' | 'letter' | 'story';
+export type AppScreen = 'hearts' | 'terminal' | 'gifts' | 'music' | 'letter' | 'story' | 'chat';
 
 export const App: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<AppScreen>('hearts');
@@ -28,10 +29,10 @@ export const App: React.FC = () => {
   }, []);
 
   // Синхронизация фоновой музыки с активным экраном:
-  // На экранах подарков, открытки и истории играет тихая романтическая музыка.
+  // На экранах подарков, открытки, истории и доски чата играет тихая романтическая музыка.
   // На экранах приветствия, терминала и винилового плеера фоновая музыка мягко приостанавливается.
   React.useEffect(() => {
-    if (currentScreen === 'gifts' || currentScreen === 'letter' || currentScreen === 'story') {
+    if (currentScreen === 'gifts' || currentScreen === 'letter' || currentScreen === 'story' || currentScreen === 'chat') {
       soundManager.startBackgroundMusic();
     } else {
       soundManager.pauseBackgroundMusic();
@@ -117,6 +118,13 @@ export const App: React.FC = () => {
           {currentScreen === 'story' && (
             <ScreenStory
               key="story"
+              onBack={() => setCurrentScreen('gifts')}
+            />
+          )}
+
+          {currentScreen === 'chat' && (
+            <ScreenChatBoard
+              key="chat"
               onBack={() => setCurrentScreen('gifts')}
             />
           )}

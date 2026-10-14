@@ -16,6 +16,8 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
   const [errorShake, setErrorShake] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [missMessage, setMissMessage] = useState<string | null>(null);
+  const [ameliaBubble, setAmeliaBubble] = useState(false);
+  const [timurBubble, setTimurBubble] = useState(false);
 
   const validateCode = (input: string) => {
     const clean = input.replace(/[\s.-]/g, '');
@@ -190,7 +192,11 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.94 }}
-              onClick={() => soundManager.playPop()}
+              onClick={() => {
+                soundManager.playPop();
+                setAmeliaBubble(true);
+                setTimeout(() => setAmeliaBubble(false), 2000);
+              }}
               style={{
                 width: 'clamp(120px, 26vw, 165px)',
                 aspectRatio: '1.2 / 1',
@@ -239,13 +245,50 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
                   filter: 'drop-shadow(0 6px 14px rgba(175, 74, 101, 0.25))',
                 }}
               />
+
+              {/* Всплывающая плашка "Любимая" */}
+              <AnimatePresence>
+                {ameliaBubble && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.7, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      position: 'absolute',
+                      bottom: '100%',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      marginBottom: '6px',
+                      backgroundColor: 'rgba(255, 252, 248, 0.98)',
+                      border: '1.5px solid var(--accent-deep)',
+                      borderRadius: '12px',
+                      padding: '4px 12px',
+                      boxShadow: '0 4px 14px rgba(175, 74, 101, 0.25)',
+                      fontFamily: 'var(--font-handwritten)',
+                      fontSize: '1.15rem',
+                      fontWeight: 700,
+                      color: 'var(--accent-crimson)',
+                      whiteSpace: 'nowrap',
+                      zIndex: 25,
+                      pointerEvents: 'none',
+                    }}
+                  >
+                    Любимая 💖
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
 
             {/* Сердечко Тимура в синей рамке */}
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.94 }}
-              onClick={() => soundManager.playPop()}
+              onClick={() => {
+                soundManager.playPop();
+                setTimurBubble(true);
+                setTimeout(() => setTimurBubble(false), 2000);
+              }}
               style={{
                 width: 'clamp(120px, 26vw, 165px)',
                 aspectRatio: '1.2 / 1',
@@ -295,6 +338,39 @@ export const ScreenTerminal: React.FC<ScreenTerminalProps> = ({ onSuccess, onBac
                   filter: 'drop-shadow(0 6px 14px rgba(74, 110, 175, 0.25))',
                 }}
               />
+
+              {/* Всплывающая плашка "Любимый" */}
+              <AnimatePresence>
+                {timurBubble && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.7, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.8, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      position: 'absolute',
+                      bottom: '100%',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      marginBottom: '6px',
+                      backgroundColor: 'rgba(255, 252, 248, 0.98)',
+                      border: '1.5px solid #4A6EAF',
+                      borderRadius: '12px',
+                      padding: '4px 12px',
+                      boxShadow: '0 4px 14px rgba(74, 110, 175, 0.25)',
+                      fontFamily: 'var(--font-handwritten)',
+                      fontSize: '1.15rem',
+                      fontWeight: 700,
+                      color: '#34558B',
+                      whiteSpace: 'nowrap',
+                      zIndex: 25,
+                      pointerEvents: 'none',
+                    }}
+                  >
+                    Любимый 💙
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           </div>
 

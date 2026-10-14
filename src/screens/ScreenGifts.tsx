@@ -5,7 +5,7 @@ import { LottieAnimation } from '../components/LottieAnimation';
 import { soundManager } from '../utils/audio';
 import { launchRomanticConfetti } from '../utils/confetti';
 import { InteractiveSnoopy } from '../components/InteractiveSnoopy';
-import { Music, Mail, Image as ImageIcon, ArrowRight, ArrowLeft, RotateCcw, Heart } from 'lucide-react';
+import { Music, Mail, Image as ImageIcon, MessageCircleHeart, ArrowRight, ArrowLeft, RotateCcw, Heart } from 'lucide-react';
 
 interface ScreenGiftsProps {
   isGiftOpened: boolean;
@@ -13,7 +13,7 @@ interface ScreenGiftsProps {
   revealedGifts: string[];
   onRevealGift: (gift: string) => void;
   onResetRevealedGifts?: () => void;
-  onOpenGift: (gift: 'music' | 'letter' | 'story') => void;
+  onOpenGift: (gift: 'music' | 'letter' | 'story' | 'chat') => void;
   onBackToHearts: () => void;
 }
 
@@ -58,12 +58,12 @@ export const ScreenGifts: React.FC<ScreenGiftsProps> = ({
     }
   };
 
-  const handleSelectGift = (gift: 'music' | 'letter' | 'story') => {
+  const handleSelectGift = (gift: 'music' | 'letter' | 'story' | 'chat') => {
     soundManager.playClick();
     onOpenGift(gift);
   };
 
-  const handleCardClick = (gift: 'music' | 'letter' | 'story') => {
+  const handleCardClick = (gift: 'music' | 'letter' | 'story' | 'chat') => {
     if (!revealedGifts.includes(gift)) {
       soundManager.playSparkle();
       launchRomanticConfetti();
@@ -100,6 +100,15 @@ export const ScreenGifts: React.FC<ScreenGiftsProps> = ({
       iconColor: '#E5AC67',
       desc: 'Все наши 39 тёплых воспоминаний в фото и видео',
       btnText: 'Воспоминания',
+    },
+    {
+      id: 'chat' as const,
+      title: 'Наш чат',
+      subtitle: 'Доска воспоминаний',
+      icon: MessageCircleHeart,
+      iconColor: '#9C3353',
+      desc: '31 821 сообщение: нажимай на доску и доставай наши фразочки',
+      btnText: 'Открыть доску фраз',
     },
   ];
 

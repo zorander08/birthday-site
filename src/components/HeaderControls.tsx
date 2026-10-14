@@ -5,8 +5,8 @@ import { launchRomanticConfetti } from '../utils/confetti';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface HeaderControlsProps {
-  currentScreen: 'hearts' | 'terminal' | 'gifts' | 'music' | 'letter' | 'story';
-  onNavigate: (screen: 'hearts' | 'terminal' | 'gifts' | 'music' | 'letter' | 'story') => void;
+  currentScreen: 'hearts' | 'terminal' | 'gifts' | 'music' | 'letter' | 'story' | 'chat';
+  onNavigate: (screen: 'hearts' | 'terminal' | 'gifts' | 'music' | 'letter' | 'story' | 'chat') => void;
 }
 
 export const HeaderControls: React.FC<HeaderControlsProps> = ({ currentScreen, onNavigate }) => {
@@ -136,7 +136,7 @@ export const HeaderControls: React.FC<HeaderControlsProps> = ({ currentScreen, o
     }, 3200);
   };
 
-  const showBackButton = currentScreen === 'music' || currentScreen === 'letter' || currentScreen === 'story';
+  const showBackButton = currentScreen === 'music' || currentScreen === 'letter' || currentScreen === 'story' || currentScreen === 'chat';
 
   return (
     <header
