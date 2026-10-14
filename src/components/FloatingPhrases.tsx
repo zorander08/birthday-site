@@ -16,16 +16,18 @@ interface FloatingItem {
 }
 
 const ZONES = [
-  { xRange: [8, 28], yRange: [12, 26] },   // Верх-лево
-  { xRange: [72, 92], yRange: [12, 26] },  // Верх-право
-  { xRange: [38, 62], yRange: [8, 16] },   // Верх-центр
-  { xRange: [6, 22], yRange: [32, 48] },   // Центр-лево верх
-  { xRange: [78, 94], yRange: [32, 48] },  // Центр-право верх
-  { xRange: [8, 24], yRange: [52, 68] },   // Центр-лево низ
-  { xRange: [76, 92], yRange: [52, 68] },  // Центр-право низ
-  { xRange: [10, 30], yRange: [74, 88] },  // Низ-лево
-  { xRange: [70, 90], yRange: [74, 88] },  // Низ-право
-  { xRange: [36, 64], yRange: [84, 94] },  // Низ-центр
+  { xRange: [6, 26], yRange: [10, 24] },   // Верх-лево
+  { xRange: [74, 94], yRange: [10, 24] },  // Верх-право
+  { xRange: [34, 66], yRange: [6, 15] },   // Верх-центр
+  { xRange: [4, 22], yRange: [28, 46] },   // Центр-лево верх
+  { xRange: [78, 96], yRange: [28, 46] },  // Центр-право верх
+  { xRange: [5, 24], yRange: [50, 68] },   // Центр-лево низ
+  { xRange: [76, 95], yRange: [50, 68] },  // Центр-право низ
+  { xRange: [8, 28], yRange: [72, 88] },   // Низ-лево
+  { xRange: [72, 92], yRange: [72, 88] },  // Низ-право
+  { xRange: [32, 68], yRange: [84, 94] },  // Низ-центр
+  { xRange: [12, 32], yRange: [20, 36] },  // Доп лево
+  { xRange: [68, 88], yRange: [20, 36] },  // Доп право
 ];
 
 const SNOOPY_STICKERS = [
@@ -42,18 +44,18 @@ export const FloatingPhrases: React.FC = () => {
 
   const spawnItem = useCallback(() => {
     setActiveItems((prev) => {
-      // До 5 элементов одновременно на фоне (баланс красоты и плавности 60 FPS на смартфонах)
-      if (prev.length >= 5) {
+      // До 9 элементов одновременно на фоне (живой и активный фон)
+      if (prev.length >= 9) {
         return prev;
       }
 
       const activeTexts = new Set(prev.filter((p) => p.type === 'text').map((p) => p.text));
       const activeZones = new Set(prev.map((p) => p.zoneIdx));
 
-      // 45% шанс для всплывающего Снупи на фоне, 55% для романтических фраз
-      const spawnSnoopy = Math.random() < 0.45;
+      // 50% шанс для Снупи, 50% для романтических фраз
+      const spawnSnoopy = Math.random() < 0.5;
 
-      // Ищем свободную зону на экране (случайно распределено по всей площади)
+      // Ищем свободную зону на экране
       const availableZones = Array.from({ length: ZONES.length }, (_, i) => i).filter(
         (z) => !activeZones.has(z)
       );
@@ -85,7 +87,7 @@ export const FloatingPhrases: React.FC = () => {
         ];
       }
 
-      // Текстовая фраза (приоритет фразам Тимура)
+      // Текстовая фраза (приоритет фразам пары)
       const choosePriority = Math.random() < 0.7;
       const priority = SITE_CONFIG.priorityPhrases;
       const secondary = SITE_CONFIG.secondaryPhrases;
@@ -121,13 +123,15 @@ export const FloatingPhrases: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const t1 = setTimeout(spawnItem, 400);
-    const t2 = setTimeout(spawnItem, 1500);
-    const interval = setInterval(spawnItem, 2600);
+    const t1 = setTimeout(spawnItem, 200);
+    const t2 = setTimeout(spawnItem, 600);
+    const t3 = setTimeout(spawnItem, 1100);
+    const interval = setInterval(spawnItem, 1300);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
+      clearTimeout(t3);
       clearInterval(interval);
     };
   }, [spawnItem]);
@@ -142,16 +146,16 @@ export const FloatingPhrases: React.FC = () => {
         {activeItems.map((item) => (
           <motion.div
             key={item.id}
-            initial={{ opacity: 0, scale: 0.88, y: 16 }}
+            initial={{ opacity: 0, scale: 0.85, y: 14 }}
             animate={{
-              opacity: [0, 0.65, 0.65, 0],
-              scale: [0.88, 1, 1, 0.94],
-              y: [16, 0, -8, -26],
+              opacity: [0, 0.75, 0.75, 0],
+              scale: [0.85, 1, 1, 0.94],
+              y: [14, 0, -8, -24],
             }}
             exit={{ opacity: 0 }}
             transition={{
-              duration: 7.2,
-              times: [0, 0.22, 0.78, 1],
+              duration: 5.6,
+              times: [0, 0.2, 0.8, 1],
               ease: 'easeInOut',
             }}
             onAnimationComplete={() => handleAnimationComplete(item.id)}
