@@ -1,0 +1,375 @@
+/**
+ * КОНФИГУРАЦИОННЫЙ ФАЙЛ САЙТА
+ * Все тексты, фотографии (все 39 фоток из твоих папок),
+ * пароль, музыкальный плейлист и параметры слайд-шоу.
+ */
+
+export interface HeartPhotoConfig {
+  url: string;
+  position?: string; // Настройка центрирования лица
+  scale?: number;
+}
+
+export interface GalleryPhotoConfig {
+  id: string;
+  url: string;
+  title: string;
+  category: 'amelia' | 'timur' | 'together';
+  rotation: number;
+}
+
+export interface TrackConfig {
+  name: string;
+  artist: string;
+  audioUrl: string;
+  duration?: string;
+  note?: string;
+}
+
+export const SITE_CONFIG = {
+  // Имена и даты
+  girlName: 'Амелия',
+  boyName: 'Тимур',
+  togetherLabel: 'Мы вместе',
+  birthdayDate: '29 октября',
+  birthYear: 2010,
+  age: 16,
+
+  // Секретные коды для терминала (день рождения 29.10.2010, особенная дата 21.04.2026 и шуточный код 67676767)
+  secretCode: '29102010',
+  secretCodeShort: '291010',
+  specialDate2026: '21042026',
+  specialDate2026Short: '210426',
+  easterEggCode: '67676767',
+
+  // Приоритетные фразы Тимура (выпадают чаще всего! Строго по 1 эмодзи на фразу)
+  priorityPhrases: [
+    'Буся! 💖',
+    'Бусюня! 🌸',
+    'Булка! 🥐',
+    'Любимая! 💕',
+    'Люблю! 💖',
+    'Кис! 🐾',
+    'Самая красивая! 💖',
+    'Самая любимая! 💞',
+    'Самая-самая! 💗',
+    'С днём рождения! 🎉',
+    'Моя бусинка! 🧁',
+    'Булочка с корицей! 🥐',
+    'Моя девочка! 💖',
+    'Обожаю тебя! ❤️',
+    'Люблю тебя безумно! 💕',
+    'Красотка моя! 🌷',
+    'Уже 16 лет! 🎂',
+    'Самая умная девочка! 🌷',
+    'Мой любимый человечек! 🌸',
+    'Ты моё чудо! 🥰',
+    'Моё счастье! 🥰',
+    'Сердечко моё! 💓',
+  ],
+
+  // Дополнительные романтические фразы (строго по 1 эмодзи на фразу)
+  secondaryPhrases: [
+    'I love you! 💌',
+    'You are the prettiest! 🌷',
+    'Happy 16th birthday! 🎂',
+    'The smartest girl! 💖',
+    'Happy birthday! 🎁',
+    'Моё солнышко! ☀️',
+    'Моя принцесса! 👑',
+    'Самая нежная! 🕊️',
+    'Твоя улыбка просто космос! 💖',
+    'Обожаю твои шутки! ❤️',
+    'Лучшая на свете! 🌸',
+    'Моя буся! 🌸',
+    'Люблю до луны и обратно! 🌙',
+    'С тобой так уютно! ☕',
+    'Моя радость! 🍓',
+    'Ты моё всё! 💖',
+    'Самые красивые глазки! 👀',
+    'Обнимаю крепко! 🫂',
+    'Скучаю по тебе! 💌',
+    'Только ты в моём сердце! 💘',
+    'С тобой так тепло! 🕯️',
+    'Моя зайка! 🐾',
+    'Всегда рядом с тобой! 🤝',
+    'Улыбнись! 😊',
+    'Мой лучик света! ☀️',
+    'Очень тебя люблю! 💖',
+    'Самая смешная и милая! 🥰',
+    'Самая милая буся! 🌸',
+    'Моя хорошая! 🌷',
+    'Все мысли только о тебе! 💭',
+    'Моя единственная! 💝',
+  ],
+
+  // ВСЕ 15 фотографий Амелии для её сердечка
+  heartPhotos: {
+    amelia: [
+      { url: '/assets/photos/amelia/amelia_07.jpg', position: 'center 35%' },
+      { url: '/assets/photos/amelia/amelia_08.jpg', position: 'center 35%' },
+      { url: '/assets/photos/amelia/amelia_01.jpg', position: 'center 38%' },
+      { url: '/assets/photos/amelia/amelia_02.jpg', position: 'center center' },
+      { url: '/assets/photos/amelia/amelia_03.jpg', position: 'center 38%' },
+      { url: '/assets/photos/amelia/amelia_04.jpg', position: 'center 38%' },
+      { url: '/assets/photos/amelia/amelia_05.jpg', position: 'center 40%' },
+      { url: '/assets/photos/amelia/amelia_06.jpg', position: 'center 40%' },
+      { url: '/assets/photos/amelia/amelia_09.png', position: 'center 42%' },
+      { url: '/assets/photos/amelia/amelia_10.png', position: 'center 42%' },
+      { url: '/assets/photos/amelia/amelia_11.png', position: 'center 42%' },
+      { url: '/assets/photos/amelia/amelia_12.png', position: 'center 42%' },
+      { url: '/assets/photos/amelia/amelia_13.png', position: 'center center' },
+      { url: '/assets/photos/amelia/amelia_14.png', position: 'center 42%' },
+      { url: '/assets/photos/amelia/amelia_15.png', position: 'center 38%' },
+    ],
+
+    // ВСЕ 11 фотографий Тимура: первым стоит желаемый скриншот Screenshot 2026-10-13 125642.png (timur_main.png)
+    timur: [
+      { url: '/assets/photos/timur/timur_main.png', position: 'center center' },
+      { url: '/assets/photos/timur/timur_04.png', position: 'center 45%' },
+      { url: '/assets/photos/timur/timur_05.png', position: 'center 42%' },
+      { url: '/assets/photos/timur/timur_06.png', position: 'center 45%' },
+      { url: '/assets/photos/timur/timur_07.png', position: 'center 45%' },
+      { url: '/assets/photos/timur/timur_08.png', position: 'center 45%' },
+      { url: '/assets/photos/timur/timur_09.png', position: 'center 45%' },
+      { url: '/assets/photos/timur/timur_10.png', position: 'center 45%' },
+      { url: '/assets/photos/timur/timur_03.png', position: 'center center' },
+      { url: '/assets/photos/timur/timur_01.jpg', position: 'center 60%' },
+      { url: '/assets/photos/timur/timur_02.jpg', position: 'center center' },
+    ],
+
+    // ВСЕ 13 общих фотографий для главного сердечка
+    together: [
+      { url: '/assets/photos/together/together_05.jpg', position: 'center 40%' },
+      { url: '/assets/photos/together/together_06.jpg', position: 'center 40%' },
+      { url: '/assets/photos/together/together_01.jpg', position: 'center 42%' },
+      { url: '/assets/photos/together/together_02.jpg', position: 'center 42%' },
+      { url: '/assets/photos/together/together_03.jpg', position: 'center center' },
+      { url: '/assets/photos/together/together_04.jpg', position: 'center 45%' },
+      { url: '/assets/photos/together/together_07.png', position: 'center 45%' },
+      { url: '/assets/photos/together/together_08.png', position: 'center 45%' },
+      { url: '/assets/photos/together/together_09.png', position: 'center 45%' },
+      { url: '/assets/photos/together/together_10.png', position: 'center 45%' },
+      { url: '/assets/photos/together/together_11.png', position: 'center 45%' },
+      { url: '/assets/photos/together/together_12.png', position: 'center 45%' },
+      { url: '/assets/photos/together/together_13.png', position: 'center 45%' },
+    ],
+  },
+
+  // ВСЕ 39 фотографий в галерее
+  galleryPhotos: [
+    // Общие
+    { id: 'g-t-1', url: '/assets/photos/together/together_05.jpg', title: 'Наш особенный момент', category: 'together', rotation: -2 },
+    { id: 'g-t-2', url: '/assets/photos/together/together_06.jpg', title: 'Самое теплое воспоминание', category: 'together', rotation: 3 },
+    { id: 'g-t-3', url: '/assets/photos/together/together_01.jpg', title: 'Счастье быть рядом', category: 'together', rotation: -3 },
+    { id: 'g-t-4', url: '/assets/photos/together/together_02.jpg', title: 'Когда мы вдвоем', category: 'together', rotation: 2 },
+    { id: 'g-t-5', url: '/assets/photos/together/together_03.jpg', title: 'Любимый день', category: 'together', rotation: -1 },
+    { id: 'g-t-6', url: '/assets/photos/together/together_04.jpg', title: 'Улыбки и радость', category: 'together', rotation: 3 },
+    { id: 'g-t-7', url: '/assets/photos/together/together_07.png', title: 'Наш вайб', category: 'together', rotation: -2 },
+    { id: 'g-t-8', url: '/assets/photos/together/together_08.png', title: 'Милые моменты', category: 'together', rotation: 2 },
+    { id: 'g-t-9', url: '/assets/photos/together/together_09.png', title: 'Смех и разговоры', category: 'together', rotation: -3 },
+    { id: 'g-t-10', url: '/assets/photos/together/together_10.png', title: 'Вместе навсегда', category: 'together', rotation: 1 },
+    { id: 'g-t-11', url: '/assets/photos/together/together_11.png', title: 'Каждый день с тобой', category: 'together', rotation: -2 },
+    { id: 'g-t-12', url: '/assets/photos/together/together_12.png', title: 'Искры в глазах', category: 'together', rotation: 3 },
+    { id: 'g-t-13', url: '/assets/photos/together/together_13.png', title: 'Любимое фото', category: 'together', rotation: -1 },
+
+    // Амелия
+    { id: 'g-a-1', url: '/assets/photos/amelia/amelia_07.jpg', title: 'Твоя невероятная улыбка', category: 'amelia', rotation: 2 },
+    { id: 'g-a-2', url: '/assets/photos/amelia/amelia_08.jpg', title: 'Самая прекрасная на свете', category: 'amelia', rotation: -3 },
+    { id: 'g-a-3', url: '/assets/photos/amelia/amelia_01.jpg', title: 'Мое вдохновение', category: 'amelia', rotation: 1 },
+    { id: 'g-a-4', url: '/assets/photos/amelia/amelia_02.jpg', title: 'Красавица Амелия', category: 'amelia', rotation: -2 },
+    { id: 'g-a-5', url: '/assets/photos/amelia/amelia_03.jpg', title: 'Самый близкий человечек', category: 'amelia', rotation: 3 },
+    { id: 'g-a-6', url: '/assets/photos/amelia/amelia_04.jpg', title: 'Лучик света', category: 'amelia', rotation: -1 },
+    { id: 'g-a-7', url: '/assets/photos/amelia/amelia_05.jpg', title: 'Такая искренняя', category: 'amelia', rotation: 2 },
+    { id: 'g-a-8', url: '/assets/photos/amelia/amelia_06.jpg', title: 'Любимый взгляд', category: 'amelia', rotation: -3 },
+    { id: 'g-a-9', url: '/assets/photos/amelia/amelia_09.png', title: 'Уютная и нежная', category: 'amelia', rotation: 2 },
+    { id: 'g-a-10', url: '/assets/photos/amelia/amelia_10.png', title: 'Самая милая буся', category: 'amelia', rotation: -2 },
+    { id: 'g-a-11', url: '/assets/photos/amelia/amelia_11.png', title: 'Обожаю твои фото', category: 'amelia', rotation: 1 },
+    { id: 'g-a-12', url: '/assets/photos/amelia/amelia_12.png', title: 'Звездочка моя', category: 'amelia', rotation: -2 },
+    { id: 'g-a-13', url: '/assets/photos/amelia/amelia_13.png', title: 'Самая добрая душа', category: 'amelia', rotation: 3 },
+    { id: 'g-a-14', url: '/assets/photos/amelia/amelia_14.png', title: 'Восхищаюсь тобой', category: 'amelia', rotation: -1 },
+    { id: 'g-a-15', url: '/assets/photos/amelia/amelia_15.png', title: 'Прекрасна в любом кадре', category: 'amelia', rotation: 2 },
+
+    // Тимур
+    { id: 'g-m-1', url: '/assets/photos/timur/timur_main.png', title: 'Твой Тимур', category: 'timur', rotation: -2 },
+    { id: 'g-m-2', url: '/assets/photos/timur/timur_04.png', title: 'Всегда на связи', category: 'timur', rotation: 2 },
+    { id: 'g-m-3', url: '/assets/photos/timur/timur_05.png', title: 'С мыслями о тебе', category: 'timur', rotation: -1 },
+    { id: 'g-m-4', url: '/assets/photos/timur/timur_06.png', title: 'Жду нашей встречи', category: 'timur', rotation: 3 },
+    { id: 'g-m-5', url: '/assets/photos/timur/timur_07.png', title: 'Твоя опора', category: 'timur', rotation: -3 },
+    { id: 'g-m-6', url: '/assets/photos/timur/timur_08.png', title: 'Счастливый с тобой', category: 'timur', rotation: 2 },
+    { id: 'g-m-7', url: '/assets/photos/timur/timur_09.png', title: 'Для тебя улыбаюсь', category: 'timur', rotation: -2 },
+    { id: 'g-m-8', url: '/assets/photos/timur/timur_10.png', title: 'Каждый день', category: 'timur', rotation: 1 },
+    { id: 'g-m-9', url: '/assets/photos/timur/timur_03.png', title: 'Смотрю на тебя', category: 'timur', rotation: -2 },
+    { id: 'g-m-10', url: '/assets/photos/timur/timur_01.jpg', title: 'Всегда рядом', category: 'timur', rotation: 2 },
+    { id: 'g-m-11', url: '/assets/photos/timur/timur_02.jpg', title: 'Только ты в сердце', category: 'timur', rotation: -1 },
+  ] as GalleryPhotoConfig[],
+
+  // Слайд-шоу «Смотреть нашу историю» (видео-эдит: все 13 общих фото + 2 главные)
+  storySlides: [
+    {
+      id: 's-1',
+      photoUrl: '/assets/photos/amelia/amelia_07.jpg',
+      caption: 'С днем рождения, Амелия!',
+      subcaption: 'Тебе сегодня 16 лет 🌸',
+      transition: 'zoom-in',
+    },
+    {
+      id: 's-2',
+      photoUrl: '/assets/photos/timur/timur_main.png',
+      caption: 'Твой Тимур',
+      subcaption: 'Всегда рядом с тобой 💙',
+      transition: 'slide-right',
+    },
+    {
+      id: 's-3',
+      photoUrl: '/assets/photos/together/together_05.jpg',
+      caption: 'Каждый день с тобой — это счастье',
+      subcaption: 'Обожаю твои шутки и твой смех',
+      transition: 'slide-left',
+    },
+    {
+      id: 's-4',
+      photoUrl: '/assets/photos/together/together_06.jpg',
+      caption: 'Самые тёплые воспоминания',
+      subcaption: 'Помнишь, как нам было весело',
+      transition: 'zoom-out',
+    },
+    {
+      id: 's-5',
+      photoUrl: '/assets/photos/together/together_01.jpg',
+      caption: 'Когда мы вместе',
+      subcaption: 'Время просто останавливается',
+      transition: 'blur-dissolve',
+    },
+    {
+      id: 's-6',
+      photoUrl: '/assets/photos/together/together_02.jpg',
+      caption: 'Улыбки и радость',
+      subcaption: 'С тобой так легко и уютно',
+      transition: 'soft-pan',
+    },
+    {
+      id: 's-7',
+      photoUrl: '/assets/photos/together/together_03.jpg',
+      caption: 'Любимый день',
+      subcaption: 'Ты моё самое дорогое чудо',
+      transition: 'zoom-in',
+    },
+    {
+      id: 's-8',
+      photoUrl: '/assets/photos/together/together_04.jpg',
+      caption: 'Наши искренние моменты',
+      subcaption: 'В глазах столько нежности',
+      transition: 'slide-right',
+    },
+    {
+      id: 's-9',
+      photoUrl: '/assets/photos/together/together_07.png',
+      caption: 'Наш особенный вайб',
+      subcaption: 'Понимаем друг друга без слов',
+      transition: 'slide-left',
+    },
+    {
+      id: 's-10',
+      photoUrl: '/assets/photos/together/together_08.png',
+      caption: 'Милые и смешные',
+      subcaption: 'С тобой могу быть настоящим',
+      transition: 'blur-dissolve',
+    },
+    {
+      id: 's-11',
+      photoUrl: '/assets/photos/together/together_09.png',
+      caption: 'Каждый разговор с тобой',
+      subcaption: 'Делает день в тысячу раз лучше',
+      transition: 'zoom-out',
+    },
+    {
+      id: 's-12',
+      photoUrl: '/assets/photos/together/together_10.png',
+      caption: 'Мы вместе навсегда',
+      subcaption: 'Держу крепко за руку',
+      transition: 'slide-right',
+    },
+    {
+      id: 's-13',
+      photoUrl: '/assets/photos/together/together_11.png',
+      caption: 'Искры и улыбки',
+      subcaption: 'Моя любимая буся',
+      transition: 'soft-pan',
+    },
+    {
+      id: 's-14',
+      photoUrl: '/assets/photos/together/together_12.png',
+      caption: 'Впереди ещё столько всего',
+      subcaption: 'Я буду всегда тебя поддерживать',
+      transition: 'zoom-in',
+    },
+    {
+      id: 's-15',
+      photoUrl: '/assets/photos/together/together_13.png',
+      caption: 'Люблю тебя всем сердцем!',
+      subcaption: 'Безумно сильно и навсегда 💖',
+      transition: 'blur-dissolve',
+    },
+  ],
+  slideDurationMs: 4000,
+
+  // Письмо-поздравление от Тимура (человеческий живой язык парня к любимой девушке)
+  letter: {
+    cardCoverTitle: 'Для моей любимой Амелии',
+    cardCoverSubtitle: 'Нажми, чтобы открыть открытку...',
+    letterTitle: 'Письмо для тебя',
+    paragraphs: [
+      'Амелия, любимая моя, с днем рождения тебя! Тебе уже 16 лет.',
+      'Я безумно рад, что ты есть у меня. С тобой всегда так уютно, смешно и легко, даже когда мы просто о чем-то болтаем или молчим рядом.',
+      'Ты у меня самая красивая, самая умная и самая родная буся. Твоя улыбка поднимает настроение в любую секунду.',
+      'Хочу пожелать, чтобы все, о чем ты мечтаешь, обязательно получилось. А я всегда буду рядом, буду тебя обнимать, во всем поддерживать и любить.',
+      'Спасибо за каждый наш день вместе. Люблю тебя очень сильно!',
+    ],
+    signature: 'Твой Тимур',
+    footerNote: '29 октября 2026',
+  },
+
+  // Музыкальный раздел (наш плейлист из MP3)
+  music: {
+    title: 'Наш плейлист',
+    subtitle: '32 трека · от нежного инди до ночного андеграунда и романтичного финала',
+    spotifyPlaylistUrl: 'https://open.spotify.com/playlist/6yTDTlrFuU7Vqfbr3ltZo3?si=e4cf45cd49484018',
+    vinylAlbumTitle: 'OUR PLAYLIST',
+    vinylArtist: 'Amelia & Timur',
+    favoriteTracks: [
+      { name: 'No One Noticed', artist: 'The Marías', audioUrl: '/assets/music/The Marías - No One Noticed.mp3', note: 'Нежность и покой' },
+      { name: 'Saturn', artist: 'SZA', audioUrl: '/assets/music/SZA - Saturn.mp3', note: 'Космический звук' },
+      { name: 'WILDFLOWER', artist: 'Billie Eilish', audioUrl: '/assets/music/Billie Eilish - WILDFLOWER.mp3', note: 'Нежная мелодия' },
+      { name: 'BIRDS OF A FEATHER', artist: 'Billie Eilish', audioUrl: '/assets/music/Billie Eilish - BIRDS OF A FEATHER.mp3', note: 'Люблю тебя навсегда' },
+      { name: 'back to friends', artist: 'sombr', audioUrl: '/assets/music/sombr - back to friends.mp3', note: 'Меланхоличный вайб' },
+      { name: "That's So True", artist: 'Gracie Abrams', audioUrl: '/assets/music/Gracie Abrams - That’s So True.mp3', note: 'Очень душевный трек' },
+      { name: 'Love Me Not', artist: 'Ravyn Lenae', audioUrl: '/assets/music/Ravyn Lenae - Love Me Not.mp3', note: 'Тёплые чувства' },
+      { name: 'Espresso', artist: 'Sabrina Carpenter', audioUrl: '/assets/music/Sabrina Carpenter - Espresso.mp3', note: 'Say you can’t sleep ☕' },
+      { name: 'Juno', artist: 'Sabrina Carpenter', audioUrl: '/assets/music/Sabrina Carpenter - Juno.mp3', note: 'Сабрина' },
+      { name: 'drop dead', artist: 'Olivia Rodrigo', audioUrl: '/assets/music/Olivia Rodrigo - drop dead.mp3', note: 'Оливия' },
+      { name: 'stupid song', artist: 'Olivia Rodrigo', audioUrl: '/assets/music/Olivia Rodrigo - stupid song.mp3', note: 'Милота' },
+      { name: 'the cure', artist: 'Olivia Rodrigo', audioUrl: '/assets/music/Olivia Rodrigo - the cure.mp3', note: 'Для души' },
+      { name: 'hate that i made you love me', artist: 'Ariana Grande', audioUrl: '/assets/music/Ariana Grande - hate that i made you love me.mp3', note: 'Для тебя' },
+      { name: 'jealousy, jealousy', artist: 'Olivia Rodrigo', audioUrl: '/assets/music/Olivia Rodrigo - jealousy, jealousy.mp3', note: 'Наш общий трек 🤝' },
+      { name: 'get him back!', artist: 'Olivia Rodrigo', audioUrl: '/assets/music/Olivia Rodrigo - get him back!.mp3', note: 'Подпеваем вместе' },
+      { name: 'Anxiety', artist: 'Doechii', audioUrl: '/assets/music/Doechii - Anxiety.mp3', note: 'Ритм и стиль' },
+      { name: 'Good Luck, Babe!', artist: 'Chappell Roan', audioUrl: '/assets/music/Chappell Roan - Good Luck, Babe!.mp3', note: 'Яркая энергия' },
+      { name: 'Midnight Sun', artist: 'Zara Larsson', audioUrl: '/assets/music/Zara Larsson - Midnight Sun.mp3', note: 'Сияй, как солнце' },
+      { name: 'Sports car', artist: 'Tate McRae', audioUrl: '/assets/music/Tate McRae - Sports car.mp3', note: 'Скорость и энергия' },
+      { name: 'Illegal', artist: 'PinkPantheress', audioUrl: '/assets/music/PinkPantheress - Illegal.mp3', note: 'Лёгкость и ритм' },
+      { name: 'LUNCH', artist: 'Billie Eilish', audioUrl: '/assets/music/Billie Eilish - LUNCH.mp3', note: 'Наш летний вайб' },
+      { name: 'Guess', artist: 'Charli xcx, Billie Eilish', audioUrl: '/assets/music/Charli xcx, Billie Eilish - Guess featuring billie eilish.mp3', note: 'Качает на максимум' },
+      { name: '365', artist: 'Charli xcx', audioUrl: '/assets/music/Charli xcx - 365.mp3', note: 'Вечеринка' },
+      { name: 'Disease', artist: 'Lady Gaga', audioUrl: '/assets/music/Lady Gaga - Disease.mp3', note: 'Огонь' },
+      { name: 'crush', artist: '2hollis', audioUrl: '/assets/music/2hollis - crush.mp3', note: 'Наш общий трек 🤝' },
+      { name: 'GOOD LOYAL THOTS', artist: 'Odetari', audioUrl: '/assets/music/Odetari - GOOD LOYAL THOTS.mp3', note: 'Наш общий трек 🤝' },
+      { name: 'Stephanie', artist: 'Nafeesisboujee', audioUrl: '/assets/music/Nafeesisboujee - Stephanie.mp3', note: 'Наш общий трек 🤝' },
+      { name: 'FACE', artist: '9mice', audioUrl: '/assets/music/9mice - FACE.mp3', note: 'Наш общий трек 🤝' },
+      { name: 'Die With A Smile', artist: 'Lady Gaga, Bruno Mars', audioUrl: '/assets/music/Lady Gaga, Bruno Mars - Die With A Smile.mp3', note: 'Только ты в сердце' },
+      { name: 'Let The Light In', artist: 'Lana Del Rey, Father John Misty', audioUrl: '/assets/music/Lana Del Rey, Father John Misty - Let The Light In (feat. Father John Misty).mp3', note: 'Наш тёплый вечер' },
+      { name: 'Sailor Song', artist: 'Gigi Perez', audioUrl: '/assets/music/Gigi Perez - Sailor Song.mp3', note: 'Такая искренняя' },
+      { name: 'Margaret', artist: 'Lana Del Rey, Bleachers', audioUrl: '/assets/music/Lana Del Rey, Bleachers - Margaret (feat. Bleachers).mp3', note: 'Обожаю эту песню' },
+    ] as TrackConfig[],
+  },
+};
